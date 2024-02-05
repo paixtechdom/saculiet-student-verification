@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+*{
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+}
+.navbar{
+    z-index: 199;
+    
+}
+.body{
+    z-index: 198;
+}
+:root{
+    --primaryColor: rgb(3, 3, 78);
+    /* --primaryColor: #FF80AB   ; */
+    --secColor: rgb(219, 20, 20);
+    /* --secColor: #EC407A; */
+}
+.gradient{
+    /* background-image: linear-gradient(to right, var(--primaryColor), var(--secColor)); */
+}
+
+.bg-blue{
+    background-color: var(--primaryColor);
+}
+.bg-sec{
+    background-color: var(--secColor);
+}
+.bg-blue-sec{
+    background-image: linear-gradient(to right, 
+    var(--primaryColor), var(--primaryColor), var(--primaryColor), var(--primaryColor), var(--primaryColor), 
+    var(--primaryColor), var(--primaryColor), var(--primaryColor), var(--primaryColor), var(--primaryColor), var(--primaryColor), var(--primaryColor), var(--primaryColor), var(--primaryColor), var(--primaryColor), var(--primaryColor), 
+    var(--secColor), var(--secColor), var(--secColor), var(--secColor), var(--secColor), var(--secColor), var(--secColor), var(--secColor), var(--secColor), var(--secColor), var(--secColor),
+    var(--secColor), var(--secColor), var(--secColor), var(--secColor), var(--secColor))
+    ;
+}
+.text-blue{
+    color: var(--primaryColor);
+}
+.text-sec{
+    color: var(--secColor);
+}
+.border-primary{
+    border: 1px solid var(--primaryColor);
+}
+.border-sec{
+    border: 1px solid var(--secColor);
+}
+.border-bottom-primary{
+    border-bottom: 1px solid var(--primaryColor);
+}
+.border-bottom-sec{
+    border-bottom: 1px solid var(--secColor);
+}
+
+.text-small{
+    font-size: 12px;
+}
+
+.h-90{
+    height: 90%;
+}
+.h-90vh{
+    height: 100vh;
+}
+.-left-100{
+    left: -100%
+}
+.small{
+    font-size: 10px;
+}
+.line-30{
+    line-height: 30px;
+}
+.line-25{
+    line-height: 25px;
+}
+
+.center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.information, .pending{
+    background-color: var(--primaryColor);
+    color: white
+}
+.success, .active{
+    background-color: rgb(5, 109, 5);
+    color: white
+}
+.danger, .cancelled{
+    /* background-color: var(--secColor); */
+    background-color: rgb(96, 2, 2);
+    color: white
+}
+.expired{
+    /* background-color: var(--secColor); */
+    background-color: rgba(141, 6, 6, 0.904);
+    color: white
+}
+.border-information, .border-pending{
+    border: 2px solid var(--primaryColor);
+}
+.border-success, .border-active{
+    border: 2px solid rgb(5, 109, 5);
+}
+.border-danger, .border-cancelled{
+    /* background-color: var(--secColor); */
+    border: 2px solid rgb(96, 2, 2);
+}
+.border-expired{
+    /* background-color: var(--secColor); */
+    border: 2px solid rgba(141, 6, 6, 0.904);
+}
+.formerror{
+    color: rgb(154, 7, 7);
+}

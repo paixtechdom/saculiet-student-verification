@@ -1,0 +1,104 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# import { useState, useContext } from 'react';
+# import { AppContext } from '../assets/Contexts/AppContext';
+# import axios from 'axios';
+# import { Welcome } from '../emails/Welcome'
+
+# const SendEmail = () => {
+#   const [email, setEmail] = useState('');
+#   const [subject, setSubject] = useState('');
+#   const [text, setText] = useState('');
+#   const { dbLocation } = useContext(AppContext)
+
+
+
+#   // Port: '2525',
+#   // SecureToken: 'ab73f3fb-58ef-4c27-bc6d-d7ad615f7b26',
+#   // SecureToken: 'f52c7905-05b1-404d-9711-a2854302e6e6',
+#   // To : 'johnoluwaferanmi0106@gmail.com', paixtechdom@gmail.com
+
+#   const sendEmail = (event) => {
+#     event.preventDefault()
+#    const config = {
+#             Host: "smtp.elasticemail.com",
+#             Username: "email.paix@yopmail.com",
+#             Password: "D6392AFF548B18C991B7ABC36ED723CD5CF2",
+#             To : "email.paix@yopmail.com",
+#             From : email,
+#             Subject : subject,
+#             Body : text
+#       }
+#     Email.send(config).then(() => alert("email sent successfully"))
+     
+
+
+
+
+
+
+#     // const credentials = {
+#     //     Host: 'smtp.elasticmail.com',
+#     //     Port: '2525',
+#     //     secure: 'true',
+#     //     auth:{
+#     //         Username: 'email.paix@yopmail.com',
+#     //         Password: 'D6392AFF548B18C991B7ABC36ED723CD5CF2'
+#     //     }
+#     // }
+#     // const mail = {
+#     //     From: 'email.paix@yopmail.com',
+#     //     To: email,
+#     //     Subject: subject,
+#     //     Body: text
+#     // }
+    
+#     // smtp.connect(credentials)
+#     //     .then(() => smtp.sendMail(mail))
+#     //     .then(info => alert('Email sent'))
+#   };
+
+
+# //   re_gNBR47Va_BdRdLgAKtkCF5wfungi9htUm 
+
+#   return (
+#     // <div className='flex flex-col mt-9 p-9 gap-8'>
+#     //     <div className="pt-9"></div>
+#     //   <input type="email" placeholder="Email" value={email}    onChange={(e) => setEmail(e.target.value)}  className='border p-4 border-black'/>
+
+#     //   <input type="text" placeholder="Subject" value={subject}     onChange={(e)=>setSubject(e.target.value)} className='border p-4 border-black'/>
+
+#     //   <textarea placeholder="Message" value={text}     onChange={(e)=>setText(e.target.value)} className='border p-4 border-black'/>
+#     //   <button onClick={sendEmail}>Send Email</button>
+#     // </div>
+
+#     <Welcome />
+#   );
+# };
+
+# export { SendEmail };
+
+

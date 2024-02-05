@@ -1,0 +1,112 @@
+  .animateParallaxBottom{
+    animation: animateParallaxBottom 1.2s ease-in-out;
+  }
+  .animateParallaxRight{
+    animation: animateParallaxRight 1.2s ease-in-out;
+  }
+
+  .updown{
+    animation: updown 2s ease-in-out infinite;
+}  
+  .scaleanimate{
+    animation: scaleanimate 2s ease-in-out infinite;
+}
+  
+/* animation around divs */
+.alert{
+  animation: alert 1s;
+}
+
+.slidetofro{
+  animation: slidetofro 1s infinite;
+}
+
+@keyframes alert {
+  0%{transform: scale(1);}
+  25%{transform: scale(0.9);}
+  50%{transform: scale(1);}
+  75%{transform: scale(0.9);}
+  100%{transform: scale(1);}
+}
+
+@keyframes slidetofro {
+  0%{
+      transform: translateX(0px);
+  }
+  60%{
+      transform: translateX(10px);
+  }
+  100%{
+      transform: translateX(0px);
+  }
+}
+
+@keyframes scaleanimate {
+  0%{
+      transform: scale(0.9);
+  }
+  60%{
+      transform: scale(1);
+  }
+  100%{
+    transform: scale(0.9);
+  }
+}
+
+
+@keyframes updown {
+  0%{
+      transform: translateY(0px);
+  }
+  60%{
+      transform: translateY(10px);
+  }
+  100%{
+      transform: translateY(0px);
+  }
+}
+
+
+  
+  @keyframes left{
+    0%{margin-left: -100%;}
+    100%{margin-left: 0%;}
+  }
+  @keyframes right{
+    0%{margin-right: -100%;}
+    100%{margin-right: 0%;}
+  }
+  @keyframes bottom{
+    0%{bottom: -100%;}
+    100%{bottom: 0%;}
+      
+  }
+  
+  @keyframes animateParallaxBottom {
+    0%{
+        top: 200px;
+        opacity: 0;
+    }
+    70%{
+      top: -30px;
+      opacity: 1;
+
+    }
+    100%{
+        top: 0px;
+    }
+  }
+  
+  @keyframes animateParallaxRight {
+    0%{
+        right: -100%;
+        opacity: 0;
+    }
+    70%{
+        right: 30px;
+        opacity: 1;
+    }
+    100%{
+        right: 0px;
+    }
+  }
