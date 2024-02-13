@@ -11,7 +11,7 @@ const Navinfo = [
         icon: 'grid-fill'
     },
     {
-        title: 'Organizations',
+        title: 'Requests',
         icon: 'people-fill'
     },
     {

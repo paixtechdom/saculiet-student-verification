@@ -1,5 +1,5 @@
 import axios from "axios"
-import { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useRef, useState } from "react"
 import { ClipLoader, SyncLoader } from "react-spinners"
 import { AppContext } from "../../assets/Contexts/AppContext"
 import { SearchResult } from "./SearchResult"
@@ -19,14 +19,14 @@ export const StudentSearch = () => {
     const [ certificate, SetCertificate ] = useState('')
     const [ images, setImages ] = useState([])
     const [ student, setStudent ] = useState({})
-    const navigate = useNavigate()
     const [ fetchingData, setFetchingData ]  = useState(false)
-    const { organization, setOrganization, dbLocation, setIsLoggedIn, setShowAlert, setAlertType, setAlertMessage,setIsAdmin } = useContext(AppContext)
+    const navigate = useNavigate()
+    const { request, setRequest, dbLocation, setIsLoggedIn, setShowAlert, setAlertType, setAlertMessage,setIsAdmin } = useContext(AppContext)
 
     const [ countDown, setCountDown ]  = useState(0)
+    const searchResult = useRef()
     
-    
-    const id = organization.id
+    const id = request.id
     
     useEffect(() => {
         document.documentElement.scrollTop = 0
@@ -57,12 +57,12 @@ export const StudentSearch = () => {
                 
                 const counter = (Math.floor((currentTime - new Date(t)))/1000
                 )
-                setCountDown(3600 - counter < 1 ? 1 : 3600 - counter)
+                setCountDown(7200 - counter < 1 ? 1 : 7200 - counter)
             }
         }
         useEffect(() => {
-            if(countDown == 1 && organization.status == 'active'){
-                axios.post(`${dbLocation}/organizations.php/expired/${id}`).then(function(res) {
+            if(countDown == 1 && request.status == 'active'){
+                axios.post(`${dbLocation}/requests.php/expired/${id}`).then(function(res) {
                     setShowAlert(true)
                     setAlertType('expired')
                     setAlertMessage(['Session has expired!','Request for another session to keep using this service'])
@@ -114,6 +114,10 @@ export const StudentSearch = () => {
                         setShowResult(true)
                         SetCertificate(res.data.fileName)
                         document.documentElement.scrollTop = 550
+                        document.documentElement.scrollTop = 550
+                        document.documentElement.scrollTop = 550
+                        document.documentElement.scrollTop = 550
+                        document.documentElement.scrollTop = 550
                     })
 
                 })
@@ -152,12 +156,12 @@ export const StudentSearch = () => {
                         <div className="text-sm flex flex-col gap-3 mt-4">
 
                         <p className=""> <span className="text-gray-700">Name of Organization:
-                            </span> {organization.name}
+                            </span> {request.name}
                             </p>
                         <p className=""> 
                         <span className="text-gray-800">
                         Time of Request Approval: 
-                        </span> {formatTime(organization.time)}
+                        </span> {formatTime(request.time)}
                         </p>
 
                         <p className="">
@@ -208,7 +212,11 @@ export const StudentSearch = () => {
                         </form>
                         {
                             showResult ?
-                            <SearchResult student={student} certificate={certificate} images={images}/> : ''
+                            <a href="searchresult" ref={searchResult}>
+                                <SearchResult student={student} certificate={certificate} images={images}/> 
+
+                            </a>
+                            : ''
                         }
                     </div>
                 </div>

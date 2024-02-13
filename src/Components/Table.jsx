@@ -19,10 +19,10 @@ const Table = ({th1, th2, data, type}) =>{
             </thead>
             <tbody className="">
                 {
-                    type == 'organizations' ?
+                    type == 'requests' ?
                     React.Children.toArray(
                         data.map((data, i) => 
-                            <TableRow td1={data.name} td2={data.email} id={data.id} td3={data.status} td3Class={data.status} type={type} i={i}/>
+                            <TableRow td1={data?.name?.replaceAll('_', ' ')} td2={data.email} id={data.id} td3={data.status} td3Class={data.status} type={type} i={i}/>
                         )
                         ) : 
                     type == 'students' ?

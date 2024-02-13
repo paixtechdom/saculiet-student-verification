@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react"
 import { useState } from "react"
 import { Link } from "react-router-dom"
-import { OrganizationsInfo } from "../../../assets/Constants"
+import { useNavigate } from "react-router"
 import { AppContext } from "../../../assets/Contexts/AppContext"
 import { Header } from "../../../Components/Header"
 import { Table, TableRow } from "../../../Components/Table"
@@ -10,23 +10,23 @@ import axios from "axios"
 import Cookie from "js-cookie"
 
 
-export const Organizations = () => {
+export const Requests = () => {
     const userDetails = Cookie.get('userDetails')
 
     const { setCurrentNav, loggedIn } = useContext(AppContext)
     const [ searchInput, setSearchInput ]  = useState('')
     const [ searchParameter, setSearchParameter ]  = useState('name')
     const [ fetchingData, setFetchingData ]  = useState(false)
-    const [ organizationsData, setOrganizationsData ]  = useState([])
-    const [ organizations, setOrganizations ]  = useState([])
-    
+    const [ requestData, setRequestData ]  = useState([])
+    const [ requests, setrequests ]  = useState([])
+    const nav = useNavigate()
     const { clickedSearch, setClickedSearch, dbLocation } = useContext(AppContext)
 
     useEffect(() => {
 
         // setFetchingData(true)
         if(searchInput.length < 1){
-            // setOrganizationsData(OrganizationsInfo)
+            // setRequestData(requestsInfo)
             // setFetchingData(false)
         }
     }, [searchInput])
@@ -37,9 +37,9 @@ export const Organizations = () => {
         }   
         document.documentElement.scrollTop = 0
 
-        axios.get(`${dbLocation}/organizations.php`).then(function(res) {
-            setOrganizationsData(res.data)
-            setOrganizations(res.data)
+        axios.get(`${dbLocation}/requests.php`).then(function(res) {
+            setRequestData(res.data)
+            setrequests(res.data)
             setTimeout(() => {
                 setFetchingData(false)
             }, 2000);
@@ -61,21 +61,21 @@ export const Organizations = () => {
         setSearchInput(input)
         // console.log('Handling Search')
         // setFetchingData()
-        const newOrganizations = organizations.filter((org) => {
+        const newrequests = requests.filter((req) => {
             if(searchParameter == 'name'){
-                if(org.name.toLowerCase().includes(input.toLowerCase())) {
-                    return org;
+                if(req.name.toLowerCase().includes(input.toLowerCase())) {
+                    return req;
                 }
                 
             }else if(searchParameter == 'status'){
-                if(org.status.toLowerCase().includes(input.toLowerCase())) {
-                    return org;
+                if(req.status.toLowerCase().includes(input.toLowerCase())) {
+                    return req;
                     
                 }
                 
             }
         })
-        setOrganizationsData(newOrganizations)
+        setRequestData(newrequests)
         setFetchingData(false)
     }
 
@@ -84,9 +84,9 @@ export const Organizations = () => {
             <div className="w-11/12 rounded-t-xl">
             {/* <div className="flex w-full flex-col overflow-hidden rounded-b-xl bg-gray-50 "> */}
                     <div className="sticky top-12 z-40">
-                    <Header backgroundColor={'bg-blue'} text={'Organizations'} linkTitle={'Sort'}
+                    <Header backgroundColor={'bg-blue'} text={'requests'} linkTitle={'Sort'}
                     link={''} btnClas={'border'} icon={'filter'}
-                    type={'func'} no={fetchingData ? 0 : organizationsData.length}/>
+                    type={'func'} no={fetchingData ? 0 : requestData.length}/>
 
                     {
                         clickedSearch ? 
@@ -111,7 +111,7 @@ export const Organizations = () => {
                     </div>
                     <div className="">
                         {  !fetchingData ?
-                            <Table data={organizationsData} th1={'Names'} th2={'Emails'} type={'organizations'}/>
+                            <Table data={requestData} th1={'Names'} th2={'Emails'} type={'requests'}/>
 
                             : 
                             <div className="center flex flex-col py-9">
@@ -121,7 +121,7 @@ export const Organizations = () => {
                         }
 
                         {
-                            organizationsData.length < 1 ? 
+                            requestData.length < 1 ? 
                             <p className="p-2 text-sm mt-6">Empty list</p> : <p></p>
                         }
                     </div>

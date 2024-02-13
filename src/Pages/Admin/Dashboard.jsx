@@ -12,10 +12,10 @@ import axios from "axios"
 import Cookie from "js-cookie"
 
 export const Dashboard = () => {
-    const { setCurrentNav, dbLocation, setOrganization, loggedIn } = useContext(AppContext)
+    const { setCurrentNav, dbLocation, setRequest, loggedIn } = useContext(AppContext)
       const userDetails = Cookie.get('userDetails')
     const nav = useNavigate()
-    const [ organizationsList, setOrganizationsList ] = useState([])
+    const [ requestsList, setRequestList ] = useState([])
     const [ pendingNo, setPendingNo ] = useState(0)
     const [ activeNo, setActiveNo ] = useState(0)
     const [ cancelledNo, setCancelledNo ] = useState(0)
@@ -32,14 +32,17 @@ export const Dashboard = () => {
         // nav('/Organizations')
         // nav('/Students/1')
         // nav('/Saculietstudents')
-        nav('/Request')
         // nav('/Settings')
         // nav('/SendEmail')
 
-        axios.get(`${dbLocation}/organizations.php`).then(function(res) {
-            setOrganizationsList(res.data)
-            const list = res.data
-            list.forEach(li => {
+        axios.get(`${dbLocation}/requests.php`).then(function(res) {
+            
+            const lis = res.data
+            // let list = lis.filter((li) => li.status !== 'unconfirmed-email')
+            setRequestList(lis)
+            setRequestList(res.data)
+            console.log(res.data)
+            lis.forEach(li => {
                 if(li.status == 'pending'){
                     setPendingNo(cur => cur + 1)
                 }
@@ -79,15 +82,15 @@ export const Dashboard = () => {
             </div>
                 <div className="flex w-11/12 flex-col overflow-hidden rounded-b-xl rounded-t-xl bg-gray-100 mt-9">
                     <Header backgroundColor={'bg-blue'} text={'Recent Activities'} linkTitle={'SEE ALL'}
-                    link={'Organizations'} btnClas={'border'} icon={'arrow-right'} type={'link'}
+                    link={'Requests'} btnClas={'border'} icon={'arrow-right'} type={'link'}
                     />
                     {/* <div className="grid grid-cols-5 border"> */}
                     <div className="">
                         {
                             React.Children.toArray(
-                                organizationsList.map((info, i) => 
+                                requestsList.map((info, i) => 
                                     i < 5 ?
-                                    <TableRow td1={info.name} td2={info.email} td3={info.status} td3Class={info.status} id={info.id} type={'organizations'}/> : ''
+                                    <TableRow td1={info?.name?.replaceAll('_', ' ')} td2={info.email} td3={info.status} td3Class={info.status} id={info.id} type={'Requests'}/> : ''
                                 )
                             )
                         }

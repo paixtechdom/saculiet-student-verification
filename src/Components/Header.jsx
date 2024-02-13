@@ -11,7 +11,7 @@ link, btnClas, icon, type, no}) => {
 
     return(
         <div className={`w-full ${backgroundColor} flex justify-between items-center text-white p-3 rounded--xl`}>
-            <h3 className="text-lg">{text} {type == 'func' ? `(${no})` : ''}</h3>
+            <h3 className="text-lg">{text.toUpperCase()} {type == 'func' ? `(${no})` : ''}</h3>
             {
                 type == 'link' ?
                 <Link to={`/${link}`}> 

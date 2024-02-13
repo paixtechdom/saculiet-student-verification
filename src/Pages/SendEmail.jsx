@@ -23,13 +23,8 @@ const SendEmail = () => {
         .catch(error => console.error('Error:', error));
 
     
-  }
-    
-  
-
-
-
-  return (
+        
+        return (
     <div className='flex flex-col mt-9 p-9 gap-8 w-full'>
     <div className="pt-9"></div>
  <input type="email" placeholder="Email" value={email}    onChange={(e) => setEmail(e.target.value)}  className='border p-4 border-black'/>
@@ -40,11 +35,12 @@ const SendEmail = () => {
    <button onClick={sendEmail}>Send Email</button>
     </div>
     // <EmailTemplate />
-
+    
     // <Welcome />
-  );
+    );
+  }
 
-
+  
 export { SendEmail };
 
 

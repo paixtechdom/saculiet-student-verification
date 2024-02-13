@@ -11,15 +11,14 @@ import { Nav } from './Components/Nav';
 import { Footer } from './Components/Footer';
 import { Login } from './Pages/Login';
 import { StudentSearch } from './Pages/General/StudentSearch';
-import { Organizations } from './Pages/Admin/Organizations/Organizations';
-import { AOrganization } from './Pages/Admin/Organizations/AOrganization';
+import { Requests } from './Pages/Admin/Organizations/Requests';
 import { Students } from './Pages/Admin/Students/Students';
 import { AStudent } from './Pages/Admin/Students/AStudent';
-import { Request } from './Pages/Request';
 import { Alert } from './Components/Alert';
 import { Settings } from './Pages/Settings/Settings';
 import Cookie from 'js-cookie';
 import { SendEmail } from './Pages/SendEmail';
+import { ARequest } from './Pages/Admin/Organizations/ARequest';
 // // import { Loading } from './Components/Loading';
 
 const Layout = () =>{
@@ -31,12 +30,12 @@ const Layout = () =>{
   // const [ loggedIn, setLoggedIn ] = useState(false)
   const [ loggedIn, setLoggedIn ] = useState(false)
   const [ clickedSearch, setClickedSearch ] = useState(true)
-  const [ organization, setOrganization ] = useState({})
+  const [ request, setRequest ] = useState({})
   const [ showAlert, setShowAlert ] = useState(false)
   const [ alertType, setAlertType ] = useState('')
   const [ alertMessage, setAlertMessage ] = useState([])
-  const  dbLocation = 'https://saculietdrivingschool.com/saculietAPI'
-  // const  dbLocation = 'http://localhost:80/saculietAPI'
+  // const  dbLocation = 'https://saculietdrivingschool.com/saculietAPI'
+  const  dbLocation = 'http://localhost:80/saculietAPI'
   
   
   
@@ -45,7 +44,7 @@ const Layout = () =>{
     const cookie = Cookie.get('userDetails')
     if(cookie !== undefined){
       const userDetails = JSON.parse(cookie)
-      setOrganization(userDetails.userName === 'admin' ? {} : userDetails)
+      setRequest(userDetails.userName === 'admin' ? {} : userDetails)
       setIsAdmin(userDetails.userName === 'admin' ? true : false)
       setLoggedIn(true)
 
@@ -59,7 +58,7 @@ const Layout = () =>{
   return(
     <div className='app overflow-hidden'>
       <HelmetProvider>
-        <AppContext.Provider value={{currentNav, setCurrentNav, loggedIn, setLoggedIn, clickedSearch, setClickedSearch, dbLocation, organization, setOrganization, setIsAdmin, isAdmin, showAlert, setShowAlert, setAlertType, alertType, setAlertMessage, alertMessage}}> 
+        <AppContext.Provider value={{currentNav, setCurrentNav, loggedIn, setLoggedIn, clickedSearch, setClickedSearch, dbLocation, request, setRequest, setIsAdmin, isAdmin, showAlert, setShowAlert, setAlertType, alertType, setAlertMessage, alertMessage}}> 
         <Nav/>  
             <>
               <Outlet />
@@ -91,12 +90,12 @@ const router = createBrowserRouter([
         element: <Settings /> 
       },
       {
-        path: '/Organizations',
-        element: <Organizations /> 
+        path: '/Requests',
+        element: <Requests /> 
       },
       {
-        path: '/Organizations/:id',
-        element: <AOrganization /> 
+        path: '/Requests/:id',
+        element: <ARequest /> 
       },
       {
         path: '/Students',
@@ -109,10 +108,6 @@ const router = createBrowserRouter([
       {
         path: '/Login',
         element: <Login /> 
-      },
-      {
-        path: '/Request',
-        element: <Request /> 
       },
       {
         path: '/SendEmail',

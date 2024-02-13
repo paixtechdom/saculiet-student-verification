@@ -6,53 +6,57 @@ import { useNavigate } from "react-router"
 import { ParallaxRight } from "../../../saculietSchool/src/Components/Parallax"
 import { AppContext } from "../assets/Contexts/AppContext"
 import { LogoText } from "../assets/Constants"
+import { ClipLoader } from "react-spinners"
 
 
 export const Login = ({}) => {
     const navigate = useNavigate()
-    const { isAdmin, dbLocation, loggedIn, setLoggedIn, setOrganization, setIsAdmin} = useContext(AppContext)
+    const { isAdmin, dbLocation, loggedIn, setLoggedIn, setRequest, setIsAdmin} = useContext(AppContext)
     
     const [ userName, setUserName ] = useState('')
     const [ password, setPassword ] = useState('')
     const [ passwordType, setPasswordType ] = useState('password')
     const [error, setError ] = useState('')
+    const [loading, setLoading ] = useState(false)
     useEffect(() => {
         Cookie.remove('userDetails', {path:'/'})
         document.documentElement.scrollTop = 0
         setLoggedIn(false)
         setIsAdmin(false)
-        setOrganization({})
+        setRequest({})
         
     }, [])
 
     const HandleLogin = (e) => {
         e.preventDefault()
+        setLoading(true)
         // if(isAdmin){
             // }
             // else{
             // }
             
             // setFetchingData(true)
-            axios.get(`${dbLocation}/organizations.php/${userName}/${password}/login`).then(function(res) {
+            axios.get(`${dbLocation}/requests.php/${userName}/${password}/login`).then(function(res) {
+                setLoading(false)
                 if(!res.data == false){
                     const currentTime = new Date()
                     const t = res.data.time
                     const counter = Math.floor((currentTime - new Date(t))/1000
                     )
-                    const timeLeft = 3600 - counter < 1 ? 1 : 3600 - counter
+                    const timeLeft = 7200 - counter < 1 ? 1 : 7200 - counter
                     
                     if(res.data.status == 'expired'){
                         setError('This request has expired, contact us to get another request')
                     }
                     else if(res.data.status == 'active' && timeLeft == 1){
-                        axios.post(`${dbLocation}/organizations.php/expired/${res.data.id}`).then(function(res) {
+                        axios.post(`${dbLocation}/requests.php/expired/${res.data.id}`).then(function(res) {
                             setError('This request has expired, contact us to get another request')
                         })
                     }
                     else if(res.data.status == 'active' && timeLeft > 1){
                         navigate('/Saculietstudents')
                         setLoggedIn(true)
-                        setOrganization(res.data)
+                        setRequest(res.data)
                         setIsAdmin(false)
                         
                         Cookie.remove('userDetails', {path:'/'})
@@ -70,6 +74,7 @@ export const Login = ({}) => {
                     axios.get(`${dbLocation}/admin.php/${userName}/${password}/login`).then(function(res) {
                         if(!res.data == false){
                             Cookie.remove('userDetails', {path:'/'})
+                            // const adminDetails 
                             Cookie.set('userDetails', JSON.stringify(res.data), {
                                 expires: 1,
                                 sameSite:'strict',
@@ -113,7 +118,7 @@ export const Login = ({}) => {
                     <ParallaxRight clas='w-full' id='name'>
                         <div className="flex border w-full rounded-xl overflow-hidden">
                                     <i className="bi bi-person-fill bg-blue p-2 text-white opacity-90"></i>
-                                    <input type="text" placeholder="Username" className="bg-transparent p-2 w-full" 
+                                    <input type="text" placeholder="Username" className="bg-transparent p-2 w-full outline-none" 
                                     value={userName}
                                     onChange={(e) => {
                                         setUserName(e.target.value)
@@ -130,7 +135,7 @@ export const Login = ({}) => {
                                 <i className={`bi bi-eye${passwordType == 'password' ? '' : '-slash'}-fill absolute right-0 m-2 scale-110 text-gray-600`} onClick={() => {
                                     setPasswordType(passwordType == 'password' ? 'text' : 'password')
                                 }}></i>
-                                <input type={passwordType} placeholder='Password' className="bg-transparent p-2 w-full" 
+                                <input type={passwordType} placeholder='Password' className="bg-transparent p-2 w-full outline-none" 
                                 value={password}
                                 onChange={(e) => {
                                     setPassword(e.target.value)
@@ -146,8 +151,17 @@ export const Login = ({}) => {
                         <div className="bg-blue w-full"></div>
                         <div className="bg-sec w-full"></div>
                       </div> */}
-                            
-                            <input type="submit" className="flex cursor-pointer items-center bg-gray-90 bg-blue shadow-xl rounded-xl p-2 text-lg transition-all duration-500  m-auto justify-center cursor-pointer w-full text-white" value={'Login'}/>
+                            {
+                                loading ? 
+                                <>
+                                    <button className="flex cursor-pointer items-center bg-gray-90 bg-blue shadow-xl rounded-xl p-2 text-lg transition-all duration-500  m-auto justify-center cursor-pointer w-full text-white gap-3"> 
+                                    <ClipLoader loading={true} color="white" size={20}/> 
+                                    Loading...
+                                    </button>
+                                </>
+                            :
+                                <input type="submit" className="flex cursor-pointer items-center bg-gray-90 bg-blue shadow-xl rounded-xl p-2 text-lg transition-all duration-500  m-auto justify-center cursor-pointer w-full text-white" value={'Login'}/>
+                            }
 
                         {/* </div> */}
                     </ParallaxRight>

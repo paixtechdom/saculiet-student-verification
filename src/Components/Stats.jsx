@@ -4,7 +4,7 @@ import { PrimaryButton, SecondaryButton } from "./Button"
 export const Stats = ({clas, title, no, icon, link, percent}) => {
     return(
         <div className={`center ${clas} p-4 rounded-xl text-gray-200 w-full`}>
-            <Link to='/Organizations' className="w-full rounded-lg flex justify-between bg-blue-80">
+            <Link to='/Requests' className="w-full rounded-lg flex justify-between bg-blue-80">
                 <div className="flex flex-col justify-center items-start bg-blue-20 w-full">
                     <p className="text-gray-100 text-lg">{no} {title}</p>
                         {/* this button should set status to ... and search on click on the org page */}
