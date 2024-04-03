@@ -1,7 +1,5 @@
 import React, { useState } from "react"
-import { StudentsInfo } from "../../assets/Constants"
 import { Document, Page, pdfjs  } from "react-pdf"
-import ProfilePics from "../../assets/Images/human.jpg"
 import { ClipLoader } from "react-spinners";
 import { useContext } from "react";
 import { AppContext } from "../../assets/Contexts/AppContext";
@@ -40,7 +38,7 @@ export const SearchResult = ({student, certificate, images}) => {
             </div>
             <div className="flex flex-col w-full ">
                 <h3 className="bg-gray-50 p-2 text-sm font-bold text-gray-800">Registration Number</h3>
-                <p className="text-sm p-1 border rounded p-2 mt-2">{student?.registrationNumber}</p>
+                <p className="text-sm p-1 border rounded p-2 mt-2">{student?.registrationNumber?.replaceAll('-','/')}</p>
             </div>
             <div className="flex flex-col w-full ">
                 <h3 className="bg-gray-50 p-2 text-sm font-bold text-gray-800">Certificate Awarded</h3>

@@ -1,15 +1,6 @@
-// import { useContext } from "react"
-// import { AppContext } from "../Contexts/AppContext"
+const Removespaces =  (word) => {
+    return word.trim()
+}
 
 
-const SortFunc = () => {
-    console.log('Sort is displayed')
-
-}   
-
-const SearchFunc = () => {
-    console.log('Search func')
-    // setClickedSearch(true)
-}   
-
-export { SortFunc, SearchFunc }
+export {Removespaces}

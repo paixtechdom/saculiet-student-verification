@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { CircleLoader, GridLoader, DotLoader, ClimbingBoxLoader } from 'react-spinners';
 // import './assets/Styles/index.css';
 // import './assets/Styles/Animation.css';
@@ -9,7 +9,7 @@ import { AppContext } from './assets/Contexts/AppContext'
 // // import { Home } from './Pages/Home/Home';
 import { Nav } from './Components/Nav';
 import { Footer } from './Components/Footer';
-import { Login } from './Pages/Login';
+import { Login } from './Pages/Login/Login';
 import { StudentSearch } from './Pages/General/StudentSearch';
 import { Requests } from './Pages/Admin/Organizations/Requests';
 import { Students } from './Pages/Admin/Students/Students';
@@ -19,6 +19,8 @@ import { Settings } from './Pages/Settings/Settings';
 import Cookie from 'js-cookie';
 import { SendEmail } from './Pages/SendEmail';
 import { ARequest } from './Pages/Admin/Organizations/ARequest';
+import { Organizations } from './Pages/Admin/Organizations/Organizations';
+import { AOrganization } from './Pages/Admin/Organizations/AOrganization';
 // // import { Loading } from './Components/Loading';
 
 const Layout = () =>{
@@ -33,7 +35,9 @@ const Layout = () =>{
   const [ request, setRequest ] = useState({})
   const [ showAlert, setShowAlert ] = useState(false)
   const [ alertType, setAlertType ] = useState('')
+  const [ searchInput, setSearchInput ] = useState('')
   const [ alertMessage, setAlertMessage ] = useState([])
+  // const  dbLocation = '/saculietAPI'
   // const  dbLocation = 'https://saculietdrivingschool.com/saculietAPI'
   const  dbLocation = 'http://localhost:80/saculietAPI'
   
@@ -58,7 +62,7 @@ const Layout = () =>{
   return(
     <div className='app overflow-hidden'>
       <HelmetProvider>
-        <AppContext.Provider value={{currentNav, setCurrentNav, loggedIn, setLoggedIn, clickedSearch, setClickedSearch, dbLocation, request, setRequest, setIsAdmin, isAdmin, showAlert, setShowAlert, setAlertType, alertType, setAlertMessage, alertMessage}}> 
+        <AppContext.Provider value={{currentNav, setCurrentNav, loggedIn, setLoggedIn, clickedSearch, setClickedSearch, dbLocation, request, setRequest, setIsAdmin, isAdmin, showAlert, setShowAlert, setAlertType, alertType, setAlertMessage, alertMessage, searchInput, setSearchInput}}> 
         <Nav/>  
             <>
               <Outlet />
@@ -87,39 +91,51 @@ const router = createBrowserRouter([
       },
       {
         path: '/Settings',
-        element: <Settings /> 
+        element: <Suspense><Settings /> </Suspense> 
       },
       {
         path: '/Requests',
-        element: <Requests /> 
+        element: <Suspense><Requests /> </Suspense>
       },
       {
-        path: '/Requests/:id',
-        element: <ARequest /> 
+        path: '/Requests/:userName',
+        element: <Suspense><ARequest /> </Suspense>
       },
       {
         path: '/Students',
-        element: <Students /> 
+        element: <Suspense><Students /> </Suspense>
       },
       {
         path: '/Students/:id',
-        element: <AStudent /> 
+        element: <Suspense><AStudent /></Suspense>
+      },
+      {
+        path: '/Organizations',
+        element: <Suspense><Organizations /> </Suspense>
+      },
+      {
+        path: '/AOrganization/:id',
+        element: <Suspense><AOrganization /> </Suspense>
       },
       {
         path: '/Login',
-        element: <Login /> 
-      },
-      {
-        path: '/SendEmail',
-        element: <SendEmail /> 
+        element: <Suspense><Login /> </Suspense>
       },
       {
         path: '/Saculietstudents',
-        element: <StudentSearch /> 
+        element: <Suspense><StudentSearch /> </Suspense>
       },
       {
         path: '/*',
-        element: <div className='pt-9 m-9 '>Page not found <Link className='mt-9 text-black' to='/'>go to home page</Link></div>
+        element: 
+        <div className='my-9 w-full bg-gray-200 flex flex-col items-center justify-center h-96'>
+          <i className="bi bi-exclamation-circle-fill text-5xl text-blue mb-3"></i>
+          <p className="text-xl">
+            Page not found 
+          </p>
+
+          <Link className='mt-9 text-white bg-blue p-3 text-sm px-8 rounded-xl ' to='/'>HOME PAGE</Link>
+        </div>
       }
     ]
   }

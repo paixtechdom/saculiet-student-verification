@@ -3,7 +3,6 @@ import React, { useContext, useState } from "react"
 import { useEffect } from "react"
 import { useNavigate, useParams } from "react-router"
 import { SyncLoader } from "react-spinners"
-import { StudentsInfo } from "../../../assets/Constants"
 import { AppContext } from "../../../assets/Contexts/AppContext"
 import { Document, Page, pdfjs  } from "react-pdf"
 import Cookie from "js-cookie"
@@ -29,7 +28,7 @@ export const AStudent = () => {
         }   
         document.documentElement.scrollTop = 0
 
-        setCurrentNav(2)
+        setCurrentNav(3)
         FetchStudent(id.id)
     }, [])
 
@@ -72,7 +71,7 @@ export const AStudent = () => {
                                 Full Name
                             </p>
                         </h3>
-                        <h1 className="text-sm p-1 border rounded p-2 mt-2">{student.firstName}  {student?.middleName?.toUpperCase()} {student.lastName} </h1>
+                        <h1 className="text-sm p-1 border rounded p-2 mt-2">{student?.firstName}  {student?.middleName?.toUpperCase()} {student?.lastName} </h1>
                     </div>
                     <div className="flex flex-col">
                     <h3 className="text-sm bg-gray-50 flex rounded overflow-hidden">
@@ -81,7 +80,7 @@ export const AStudent = () => {
                                 Registration Number
                             </p>
                         </h3>
-                        <h1 className="text-sm p-1 border rounded p-2 mt-2">{student.registrationNumber}</h1>
+                        <h1 className="text-sm p-1 border rounded p-2 mt-2">{student.registrationNumber?.replaceAll('-','/')}</h1>
                     </div>
                     <div className="flex flex-col">
                     <h3 className="text-sm bg-gray-50 flex rounded overflow-hidden">

@@ -1,13 +1,13 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useRef } from "react"
 import { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
-import { StudentsInfo } from "../../../assets/Constants"
 import { AppContext } from "../../../assets/Contexts/AppContext"
 import { Header } from "../../../Components/Header"
 import { Table, TableRow } from "../../../Components/Table"
 import {CircleLoader, GridLoader, DotLoader, ClimbingBoxLoader, FadeLoader, PacmanLoader, SyncLoader, SquareLoader, SkewLoader, ScaleLoader, RotateLoader, RingLoader, RiseLoader, PuffLoader, PropagateLoader, ClipLoader, ClockLoader, BarLoader,  } from 'react-spinners';
 import axios from "axios"
 import Cookie from "js-cookie"
+import { Removespaces } from "../../../assets/Functions/Func"
 
 
 export const Students = () => {
@@ -15,103 +15,95 @@ export const Students = () => {
 
     const { setCurrentNav, dbLocation } = useContext(AppContext)
     const [ searchInput, setSearchInput ]  = useState('')
-    const [ searchParameter, setSearchParameter ]  = useState('name')
     const [ fetchingData, setFetchingData ]  = useState(false)
     const [ studentsData, setStudentsData ]  = useState([])
-    const [ students, setStudents ]  = useState([])
-    
-    const { clickedSearch, setClickedSearch } = useContext(AppContext)
-    const nav = useNavigate()
+    const [ max, setMax  ]  = useState(10)
+
+    const searchRef = useRef()
 
     useEffect(() => {
-        setFetchingData(true)
-        setTimeout(() => {
-            setFetchingData(false)
-        }, 2000);
-        if(searchInput.length < 1){
-            // setStudentsData(StudentsInfo)
-            // console.log(StudentsInfo)
-        }
-    }, [searchInput])
-    
+    }, [studentsData])
+    const nav = useNavigate()
+
+    // useEffect(() => {
+        // }, [searchInput])
+        
     useEffect(() => {
         if(userDetails == undefined){
             nav('/Login')
         }
         document.documentElement.scrollTop = 0
+        
+        setFetchingData(true)
+        setCurrentNav(3)
+       
+        fetchStudents()
+    }, [])
 
-        setCurrentNav(2)
+    const fetchStudents = () => {
         axios.get(`${dbLocation}/students.php`).then(function(res) {
             setStudentsData(res.data)
-            setStudents(res.data)
+            // setStudents(res.data)
             setTimeout(() => {
                 setFetchingData(false)
-            }, 2000);
+            }, 500);
         })
-
-    }, [])
+    }
     
     useEffect(() => {
-        if(searchInput.length > 0){
+        setMax(10)
+        const delay = setTimeout(() => {
             HandleSearch(searchInput)
-        }
-    }, [searchInput, searchParameter])
+        }, 1000);
+
+        return () => clearTimeout(delay)
+    
+    }, [searchInput])
 
 
-    const HandleSearch = (input) => {
-        setSearchInput(input)
-        // console.log('Handling Search')
-        const newStudents = students.filter((stud) => {
-            if(searchParameter == 'name'){
-                if(stud.firstName?.toLowerCase().includes(input.toLowerCase())) {
-                    return stud;
-                }
-                
-            }else if(searchParameter == 'regNo'){
-                if(stud.registrationNumber.toLowerCase().includes(input.toLowerCase())) {
-                    return stud;
-            
-            }
-
-            }
+    const HandleSearch = (e) => {
+        setFetchingData(true)
+        if(e == ''){
+            fetchStudents()
+        }else{
+            axios.get(`${dbLocation}/students.php/${e?.toUpperCase()}/search`).then((res) => {
+                setStudentsData(res.data)
+                setTimeout(() => {
+                    setFetchingData(false)
+                    
+                }, 500);
+            // if(res.data != false){
+            // }
         })
-        setStudentsData(newStudents)
+        }
     }
 
     return(
         <div className="center my-9 mb-9">
-            <div className="w-11/12 rounded-t-xl  min-h-screen">
-            {/* <div className="flex w-full flex-col overflow-hidden rounded-b-xl bg-gray-50"> */}
+            <div className="w-11/12 rounded-t-xl  min-h-screen  md:w-9/12 md:mt-9">
                 <div className="sticky top-12 z-40">
                     <Header backgroundColor={'bg-blue'} text={'Students'} linkTitle={'Sort'}
                     link={''} btnClas={'border'} icon={'filter'}
-                    type={'func'} no={fetchingData? 0 : studentsData.length}/>
-                    {
-                        clickedSearch ? 
-                        <div className="flex p-2 gap-4 bg-white">
-                            <input type="text" placeholder={`Search with ${searchParameter == 'regNo' ? 'reg number' : searchParameter}`} className="w-9/12 border p-1 border-gray-400 rounded-lg px-2 bg-transparent outline-none text-small" value={searchInput} onChange={(e) => {
-                                HandleSearch(e.target.value)
-                                }}/>
+                    type={'func'} no={fetchingData? 0 : studentsData.length} hIcon={'award-fill'}/>
 
-                            <div className="flex text-small gap-3 w-5/12">
-                                <button className={`rounded-lg ${searchParameter == 'name' ? 'bg-sec text-gray-200 p-2' : 'border-gray-800'}`} onClick={() => {
-                                    setSearchParameter('name')
-                                }}>Name</button>
+                   <div className="flex p-2 gap-4 bg-white border border-gray-400 my-3 rounded-lg">
+                        <i className="bi bi-search right-0 p-1 px-2 cursor-pointer" onClick={() => searchRef.current.focus()} 
+                        ></i>
 
-                                <button className={`rounded-lg ${searchParameter == 'regNo' ? 'bg-sec text-gray-200 p-2' : 'border-gray-800'}`} onClick={() => {
-                                    setSearchParameter('regNo')
-                                }}>Reg No</button>
-                            </div>
-                        </div>
-
-                        : ''
-                    }
+                        <input type="text" placeholder={`Search`} className="w-full bg-transparent outline-none text-small" value={searchInput} ref={searchRef} onChange={(e) => {
+                            setSearchInput(e.target.value)
+                        }}/>
+                        <i className="bi bi-x-lg bg-gray-100 rounded-full right-0 p-1 px-2 cursor-pointer" onClick={() => {setSearchInput('')
+                        searchRef.current.focus()
+                        }}></i>
+                    </div>
 
                 </div>
                     <div className="">
-                        {  !fetchingData ?
+                        {  
+                        !fetchingData ?
                             
-                            <Table data={studentsData} th1={'Names'} th2={'Reg Number'} type={'students'}/>
+                            <Table data={studentsData} th1={'NAMES'} th2={'REGISTRATION NUMBER'} type={'students'} max={max}/>
                             : 
                             <div className="center flex flex-col py-9">
                                 <SyncLoader color={'rgb(3, 3, 78)'} size={15} loading={true} speedMultiplier={0.8}/>
@@ -124,7 +116,32 @@ export const Students = () => {
                             <p className="p-2 text-sm mt-6">Empty list</p> : <p></p>
                         }
                     </div>
-                {/* </div> */}
+
+                    <div className="w-full flex flex-col my-9">
+                        <div className="mb-2">Pages</div>
+                        <div className="w-11/12 grid grid-cols-9 gap-4">
+                            {
+                                studentsData.map((i, key) => (
+                                    // key/10 != 0 &&
+                                    key % 10 == 0 ?
+
+                                    <div className={`cursor-pointer center text-sm ${key + 10 == max ? 'font-bold text-xl' : 'bg-gray-50 shadow-xl rounded-full' }`} key={key}
+                                    style={{
+                                        height: 30+'px',
+                                        width: 30+'px',
+                                    }}
+                                        onClick={() => {
+                                            setMax(key + 10)
+                                            document.documentElement.scrollTop = 0
+                                        }}
+                                    >{((key + 10)/10) }</div>
+
+                                    : ''
+                                ))
+                            }
+                        </div>
+
+                    </div>
 
             </div>
         </div>
