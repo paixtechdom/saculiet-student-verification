@@ -3,8 +3,6 @@ import { useContext, useEffect, useRef, useState } from "react"
 import { ClipLoader, SyncLoader } from "react-spinners"
 import { AppContext } from "../../assets/Contexts/AppContext"
 import { SearchResult } from "./SearchResult"
-import 'react-pdf/dist/Page/AnnotationLayer.css';
-import 'react-pdf/dist/Page/TextLayer.css';
 import Cookie from "js-cookie"
 import { useNavigate } from "react-router"
 import { LogoText, requestTime } from "../../assets/Constants"
