@@ -180,24 +180,24 @@ export const StudentSearch = () => {
                         <h3 className="text-center text-2xl">Verify Our Students' Certificate</h3>
                         <div className="text-sm flex flex-col gap-3 mt-6 w-11/12 lg:w-9/12 xl:w-7/12">
 
-                        <p className=""> <span className="text-gray-700">Name of Organization: </span> 
-                             {request.name.replaceAll('_', ' ')}
+                            <p className=""> <span className="text-gray-700">Name of Organization: </span> 
+                                {request.name.replaceAll('_', ' ')}
+                                </p>
+                            <p className=""> 
+                            <span className="text-gray-800">
+                            Time of Request Approval: 
+                            </span> {formatTime(request.time)}
                             </p>
-                        <p className=""> 
-                        <span className="text-gray-800">
-                        Time of Request Approval: 
-                        </span> {formatTime(request.time)}
-                        </p>
 
-                        <p className="">
-                        <span className="text-gray-800">
-                            Time Left: 
-                        </span> {formatCountdown(countDown)}
-                        </p>
+                            <p className="">
+                            <span className="text-gray-800">
+                                Time Left: 
+                            </span> {formatCountdown(countDown)}
+                            </p>
                         </div>
 
 
-                        <form action="" className="flex justify-between w-11/12 items-center transition-all duration-500 gap-6 flex-col bg-blue-30 lg:w-9/12 xl:w-7/12 p-4 py-8 rounded-xl shadow-lg my-9" onSubmit={HandleSearch}>
+                        <form action="" className="flex justify-between w-11/12 items-center transition-all duration-500 gap-9 flex-col bg-blue-30 lg:w-9/12 xl:w-7/12 p-7 md:p-9 py-8 rounded-xl shadow-lg my-9" onSubmit={HandleSearch}>
                             <label htmlFor="" className="">Enter Student's Details</label>
                             {
                                 error.length > 1 ?
@@ -224,7 +224,7 @@ export const StudentSearch = () => {
                                 onChange={(e) => setRegNo(Removespaces(e.target.value))}
                                 required/>
                             </div>
-                            <button className="bg-blue w-full p-3 text-gray-100 rounded-lg flex justify-center items-center gap-3 text-sm">
+                            <button className="bg-blue w-full md:w-[250px] p-3 text-gray-100 rounded-lg flex justify-center items-center gap-3 text-sm">
                                 {
                                     isSearching ?
                                     <ClipLoader color={'rgb(225, 225, 225)'} size={15} loading={true} speedMultiplier={0.5}/> :
@@ -237,7 +237,7 @@ export const StudentSearch = () => {
                         </form>
                         {
                             showResult ?
-                            <a href="searchresult" ref={searchResult} className="w-11/12 lg:w-9/12 xl:w-7/12">
+                            <a href="searchresult" ref={searchResult} className="w-11/12 lg:w-10/12 xl:w-9/12">
                                 <SearchResult student={student} certificate={certificate} images={images}/> 
 
                             </a>

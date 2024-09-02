@@ -67,7 +67,7 @@ export const Nav = () => {
                                     <span className="small -mt-2">Logout</span>
                                 </button>
                                 <div className="" onClick={()=> setDropDownPos(dropdownPos == 0 ? -100 : 0)}>
-                                    <i className={`bi bi-${dropdownPos == 0 ? 'x-lg' : 'justify'}  text-gray-900 text-2xl cursor-pointer`}></i>
+                                    <i className={`bi bi-${dropdownPos == 0 ? 'x-lg' : 'list text-3xl'}  text-gray-900 text-2xl cursor-pointer`}></i>
                                 </div>
                 
                             </div>

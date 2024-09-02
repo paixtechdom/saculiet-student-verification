@@ -38,8 +38,8 @@ const Layout = () =>{
   const [ searchInput, setSearchInput ] = useState('')
   const [ alertMessage, setAlertMessage ] = useState([])
   // const  dbLocation = '/saculietAPI'
-  // const  dbLocation = 'https://saculietdrivingschool.com/saculietAPI'
-  const  dbLocation = 'http://localhost:80/saculietAPI'
+  const  dbLocation = 'https://saculietdrivingschool.com/saculietAPI'
+  // const  dbLocation = 'http://localhost:80/saculietAPI'
   
   
   

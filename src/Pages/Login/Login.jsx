@@ -96,8 +96,8 @@ export const Login = ({}) => {
         
         
         return(
-            <div className="flex items-center h-screen flex flex-col">
-                <a href="https://saculietdrivingschool.com" className="md:w-1/12 fixed top-0 left-0 m-3">
+            <div className="flex items-center h-screen flex-col">
+                <a href="https://saculietdrivingschool.com" className="md:w-1/12 fixed top-0 left-0 md:top-9 md:left-9 m-3">
 
                     <img src={LogoText} alt="logo" className="w-2/12 md:w-5/12 lg:w-7/12"  onClick={() => {
                         Cookie.remove('userDetails', {path:'/'})
@@ -106,12 +106,12 @@ export const Login = ({}) => {
                         
                     }}/>
                 </a>
-                    <div className="text-lg h-1/5 my-9 py-9 w-10/12 text-center ">SACULIET STUDENTS' VERIFICATION</div>
+                    <div className="text-2xl h-1/5 my-9 py-9 w-10/12 text-center font-bold text-blue ">SACULIET STUDENTS' VERIFICATION</div>
                     {
                         authState == 0 ?
-                        <form className="flex justify-between w-11/12 items-center transition-all duration-500 gap-6 flex-col bg-blue-30 lg:w-9/12 xl:w-7/12 border p-4 py-8 rounded-xl shadow-lg" onSubmit={HandleLogin}>
+                        <form className="flex justify-between w-11/12 items-center transition-all duration-500 gap-6 flex-col bg-blue-30 lg:w-9/12 xl:w-7/12 border p-7  md:p-9 py-8 rounded-xl shadow-lg" onSubmit={HandleLogin}>
                             <div className="w-full ">
-                                <h2 className="text-2xl text-gray-900">Login</h2>
+                                <h2 className="text-2xl text-gray-900 font-bold">Login</h2>
                             </div>
                             <p className="text-red-700 text-small">{error}</p>
                             <ParallaxRight clas='w-full' id='name'>
@@ -160,22 +160,16 @@ export const Login = ({}) => {
                                 }}>Forgot Password?</p> : ''
                             }
                             <ParallaxRight clas='w-full ' id='send'>
-                                {/* <div className={`flex cursor-pointer items-center bg-gray-90 bg-blue shadow-xl rounded-xl p-2 text-lg transition-all duration-500  m-auto justify-center cursor-pointer border relative overflow-hidden`}
-                            >  */}
-                            {/* <div className="absolute top-0 left-0 z-10 flex w-full h-full">
-                                <div className="bg-blue w-full"></div>
-                                <div className="bg-sec w-full"></div>
-                            </div> */}
                                     {
                                         loading ? 
                                         <>
-                                            <button className="flex cursor-pointer items-center bg-gray-90 bg-blue shadow-xl rounded-lg p-3 text-sm transition-all duration-500  m-auto justify-center cursor-pointer w-full text-white gap-3"> 
+                                            <button className="flex items-center bg-gray-90 bg-blue shadow-xl rounded-lg p-3 text-sm transition-all duration-500  m-auto justify-center cursor-pointer md:w-[300px] text-white gap-3"> 
                                             <ClipLoader loading={true} color="white" size={20}/> 
                                             PLEASE WAIT...
                                             </button>
                                         </>
                                     :
-                                        <input type="submit" className="flex cursor-pointer items-center bg-gray-90 bg-blue shadow-xl rounded-lg p-3 text-sm transition-all duration-500  m-auto justify-center cursor-pointer w-full text-white" value={'LOGIN'}/>
+                                        <input type="submit" className="flex cursor-pointer items-center bg-gray-90 bg-blue shadow-xl rounded-lg p-3 text-sm transition-all duration-500  m-auto justify-center w-full md:w-[200px] text-white" value={'LOGIN'}/>
                                     }
 
                                 {/* </div> */}
