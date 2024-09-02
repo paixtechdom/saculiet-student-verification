@@ -2,8 +2,6 @@ import React, { useState } from "react"
 import { ClipLoader } from "react-spinners";
 import { useContext } from "react";
 import { AppContext } from "../../assets/Contexts/AppContext";
-import 'react-pdf/dist/Page/TextLayer.css';
-import 'react-pdf/dist/Page/AnnotationLayer.css';
 import { useEffect } from "react";
 import axios from "axios";
 
