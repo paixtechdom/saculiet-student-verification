@@ -38,19 +38,21 @@ export const Settings = () => {
             setConfirmPasswordError('Passwords do not match')
         }else{
             setConfirmPasswordError('')
-            
         }
     }, [confirmPassword, newPassword])
 
     useEffect(() => {
       passwordStrength(newPassword)
-
+      setNewPasswordError('')
+      
       if(newPassword.length > 0){
-        if(newPassword.length < 9){
+          if(newPassword.length < 8){
+            // setNewPasswordError('')
             setNewPasswordError('Password must be at least 8 characters')
         }else{
             if(!newPassword.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)){
                 setNewPasswordError('Password must contain at least an uppercase letter, a lowercase letter and a number')
+                // setNewPasswordError('')
 
             }else{
                 setNewPasswordError('')
@@ -58,6 +60,7 @@ export const Settings = () => {
             
         }
     }
+
     }, [newPassword])
 
 
@@ -140,7 +143,8 @@ export const Settings = () => {
                     <div className="flex flex-col">
                         <input type={showPassword} placeholder="New Password" name="" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}   className="shadow-lg p-3 outline-none border-bottom-primary bg-gray-50" required/>
                         {
-                            newPassword.length > 7 ?
+                            // newPassword.length > 7 &&
+                            newPasswordError !== '' ?
                             <>
                             <p className="mx-2 mt-2 mb-1 text-sm">Password Strength: {
                                 passwordPercentage == 40 ? 'Weak' :
@@ -161,6 +165,7 @@ export const Settings = () => {
                             </>
                             : ''
                         }
+                        
                         {
                             newPasswordError != '' ?
                             <FormError message={newPasswordError}/> : ''

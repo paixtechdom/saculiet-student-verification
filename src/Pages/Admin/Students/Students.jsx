@@ -103,7 +103,12 @@ export const Students = () => {
                         {  
                         !fetchingData ?
                             
-                            <Table data={studentsData} th1={'NAMES'} th2={'REGISTRATION NUMBER'} type={'students'} max={max}/>
+                            <Table 
+                                data={studentsData} 
+                                th1={'NAMES'} 
+                                th2={'REGISTRATION NUMBER'} 
+                                type={'students'} 
+                                max={max}/>
                             : 
                             <div className="center flex flex-col py-9">
                                 <SyncLoader color={'rgb(3, 3, 78)'} size={15} loading={true} speedMultiplier={0.8}/>

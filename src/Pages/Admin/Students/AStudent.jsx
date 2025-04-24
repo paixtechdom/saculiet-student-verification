@@ -104,7 +104,7 @@ export const AStudent = () => {
                     </div>
 
                     <div className="flex flex-col gap-8 lg:flex-row w-full">
-                        <div className="flex flex-col w-full">
+                        {/* <div className="flex flex-col w-full">
                             <h3 className="text-sm bg-gray-50 flex rounded overflow-hidden">
                                 <i className="bi bi-percent mr-3 bg-gray-900 text-gray-200 p-3 px-3"></i>
                                 <p className="p-3 text-gray-700">
@@ -112,7 +112,8 @@ export const AStudent = () => {
                                 </p>
                             </h3>
                             <h1 className="text-sm border rounded p-3 mt-3">{student?.testScore}</h1>
-                        </div>
+                        </div> */}
+
                         <div className="flex flex-col w-full">
                             <h3 className="text-sm bg-gray-50 flex rounded overflow-hidden">
                                 <i className="bi bi-percent mr-3 bg-gray-900 text-gray-200 p-3 px-3"></i>
@@ -124,7 +125,7 @@ export const AStudent = () => {
                         </div>
                     </div>
 
-                    <div className="center w-full flex flex-col gap-5">
+                    {/* <div className="center w-full flex flex-col gap-5">
                         <h3 className="text-sm bg-gray-50 flex rounded overflow-hidden w-full my-5">
                                 <i className="bi bi-image-fill mr-3 bg-gray-900 text-gray-200 p-3 px-3"></i>
                                 <p className="p-3 text-gray-700">
@@ -144,7 +145,7 @@ export const AStudent = () => {
                                 }
                             </div>
                        
-                    </div>
+                    </div> */}
 
 
                     <div className="center w-full flex flex-col gap-5">
@@ -155,14 +156,11 @@ export const AStudent = () => {
                             </p>
                         </h3>
 
-                        <iframe src={`${certificate}#toolbar=0`}
-                        style={{
-                            width: '100%',
-                            minHeight: '70vh',
-                            border: 'none'
-                          }}
-                        
-                        ></iframe>
+                        <img src={`${dbLocation}/certificates/${certificate}`}                    
+                            alt={"Certificate for " + student?.firstName?.toUpperCase() + " " + student?.lastName?.toUpperCase()}
+                            className="w-full border border-blue-300 min-h-[30vh] "
+                           
+                        />   
 
                            
                        

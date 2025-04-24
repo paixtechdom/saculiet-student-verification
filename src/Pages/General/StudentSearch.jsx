@@ -165,7 +165,7 @@ export const StudentSearch = () => {
                 </div> 
                 : 
                 <div className="center mt-9 pt-9 w-full">
-                    <a href="https://saculietdrivingschool.com" className="md:w-1/12 fixed top-0 left-0 m-3">
+                    <a href="https://saculietdrivingschool.org" className="md:w-1/12 fixed top-0 left-0 m-3">
 
                     <img src={LogoText} alt="logo" className="w-2/12 md:w-5/12 lg:w-7/12"  onClick={() => {
                         Cookie.remove('userDetails', {path:'/'})

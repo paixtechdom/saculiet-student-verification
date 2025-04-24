@@ -4,7 +4,7 @@ import { AppContext } from "../../assets/Contexts/AppContext"
 import { FormError } from "../../Components/FormError"
 import Cookie from "js-cookie"
 import axios from "axios"
-import { useNavigate } from "react-router"
+// import { useNavigate } from "react-router"
 
 export const ChangePassword = ({setAuthState, setProgress}) => {
 
@@ -16,7 +16,7 @@ export const ChangePassword = ({setAuthState, setProgress}) => {
     const [ confirmPasswordError, setConfirmPasswordError ] = useState('')
     const [ passwordPercentage, setPasswordPercentage ] = useState(1)
     const [ loading, setLoading ] = useState(false)
-    const navigate = useNavigate()    
+    // const navigate = useNavigate()    
 
     useEffect(() => {
         setCurrentNav(4)
@@ -41,7 +41,7 @@ export const ChangePassword = ({setAuthState, setProgress}) => {
       passwordStrength(newPassword)
 
       if(newPassword.length > 0){
-        if(newPassword.length < 9){
+        if(newPassword.length < 8){
             setNewPasswordError('Password must be at least 8 characters')
         }else{
             if(!newPassword.match(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).+$/)){
@@ -119,8 +119,9 @@ export const ChangePassword = ({setAuthState, setProgress}) => {
 
                     <div className="flex flex-col">
                         <input type={showPassword} placeholder="New Password" name="" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}   className="p-3 outline-none bg-gray-50  border-bottom-primary" required/>
-                        {
-                            newPassword.length > 7 ?
+                        {/* {
+                            // newPassword.length > 7 &&
+                             newPasswordError !== '' ?
                             <>
                             <p className="mx-2 mt-2 mb-1 text-sm">Password Strength: {
                                 passwordPercentage == 40 ? 'Weak' :
@@ -140,7 +141,7 @@ export const ChangePassword = ({setAuthState, setProgress}) => {
                             }`}></p>
                             </>
                             : ''
-                        }
+                        } */}
                         {
                             newPasswordError != '' ?
                             <FormError message={newPasswordError}/> : ''

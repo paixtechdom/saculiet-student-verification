@@ -97,7 +97,7 @@ export const Login = ({}) => {
         
         return(
             <div className="flex items-center h-screen flex-col">
-                <a href="https://saculietdrivingschool.com" className="md:w-1/12 fixed top-0 left-0 md:top-9 md:left-9 m-3">
+                <a href="https://saculietdrivingschool.org" className="md:w-1/12 fixed top-0 left-0 md:top-9 md:left-9 m-3">
 
                     <img src={LogoText} alt="logo" className="w-2/12 md:w-5/12 lg:w-7/12"  onClick={() => {
                         Cookie.remove('userDetails', {path:'/'})
